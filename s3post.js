@@ -1,7 +1,7 @@
 var util = require("util");
 var moment = require("moment");
 var helpers = require("./helpers");
-
+var METADATA_FIELD_PREFIX = "x-amz-meta-";
 var ACCESS_KEY_FIELD_NAME = "AWSAccessKeyId";
 var POLICY_FIELD_NAME = "policy";
 var SIGNATURE_FIELD_NAME = "signature";
@@ -44,8 +44,7 @@ var S3Form = function(policy){
 }
 
 S3Form.prototype.generateS3FormFields = function() {
-	var conditions =this.policy.getConditions();
-	
+	var conditions =this.policy.getConditions();	
 	var formFields = [];
 
 	conditions.forEach(function(elem){
@@ -60,6 +59,7 @@ S3Form.prototype.generateS3FormFields = function() {
 			 	formFields.push(hiddenField(key, value));
 		}	
 	});
+	
 	
 	return formFields;	
 }

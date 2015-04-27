@@ -1,8 +1,10 @@
 {	"expiration" : {"day":1},
-	"conditions": [ ["starts-with", "$key", "radek.student"],
+	"conditions": [ ["starts-with", "$key", "izabela.borowiecka/"],
     				 {"bucket": "lab4-weeia"}, 
-    				 {"acl": "private"},
-    				 {"success_action_redirect": "http:\\localhost:8080"},   
+    				 {"acl": "public-read"},
+				 ["starts-with", "$x-amz-meta-metadane",""],
+				  ["starts-with", "$x-amz-meta-ip",""],
+    				 {"success_action_redirect": "http://54.200.128.57:8080"},   
     				 ["content-length-range", 0, 1048576]
     				]   
 }
