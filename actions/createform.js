@@ -10,6 +10,7 @@ var AWS = require('aws-sdk');
 
 AWS.config.loadFromPath('./config.json');
 var s3 = new AWS.S3();
+var simpleDB = new AWS.SimpleDB();
 
 var task = function(request, callback){	
 
@@ -40,6 +41,39 @@ console.log(request.query.bucket);
 	console.log(body);
 	var klucz =  helpers.calculateDigest("md5",body,'hex');
 	console.log(klucz);
+
+	var paramsDomain = {
+  	DomainName: 'borowieckaDB1'
+	};
+	simpleDB.createDomain(paramsDomain, function(err, data) {
+ 	if (err) console.log(err, err.stack); // an error occurred
+  	else     console.log("data");           // successful response
+	});	
+	var paramDB = {
+			 Attributes: [
+			{
+				Name: JSON.stringify(request.query.key),
+				Value: JSON.stringify(klucz),
+			},
+			],
+			DomainName: 'borowieckaDB1',
+			ItemName: 'Klucz' 
+	}
+
+	simpleDB.putAttributes(paramDB,function(err, data) {
+  		if (err) console.log(err, err.stack); // an error occurred
+  		else     console.log('wprowadzono poprawnie');           // successful response
+	});
+	
+	var paramsGET = {
+  			DomainName: 'borowieckaDB1',
+  			ItemName: 'Klucz',
+  			};
+	simpleDB.getAttributes(paramsGET, function(err, data) {
+  	if (err) console.log(err, err.stack); // an error occurred
+  	else     console.log(data);           // successful response
+});
+
 	callback(null,'<a href="https://s3-us-west-2.amazonaws.com/'+ request.query.bucket+'/'+request.query.key+'">Download</a>' + '<br/>' 
                             +'bucket: ' + request.query.bucket +' <br/>'
 		            +'filename: ' + request.query.key +' <br/>'

@@ -7,8 +7,8 @@
 		<nav class="navbar">
 			
 		</nav>
-<div class="container">
-			<section id="section1" class="panel panel-default">
+		<div class="container">
+id="section1" class="panel panel-default">
 			<div class="panel-heading">
 			<div class="container">
 	    		<h3 class="panel-title">POSTing a file to Amazon S3</h3>

@@ -4,7 +4,7 @@
     				 {"acl": "public-read"},
 				 ["starts-with", "$x-amz-meta-metadane",""],
 				  ["starts-with", "$x-amz-meta-ip",""],
-    				 {"success_action_redirect": "http://54.200.128.57:8080"},   
+    				 {"success_action_redirect": "http://52.11.167.98:8080"},   
     				 ["content-length-range", 0, 1048576]
     				]   
 }
